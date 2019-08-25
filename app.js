@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+require('./db/mongoose')
 const passport = require('passport')
 const authRoute = require('./routes/authRoute')
 
