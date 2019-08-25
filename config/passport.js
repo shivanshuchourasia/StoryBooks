@@ -10,6 +10,7 @@ module.exports = function (passport) {
     callbackURL: '/auth/google/callback',
     proxy: true
   }, async (accessToken, refreshToken, profile, done) => {
+
     const newUser = {
       googleID: profile.id,
       email: profile.emails[0].value,
@@ -19,17 +20,28 @@ module.exports = function (passport) {
     }
 
     try {
-      const user = await User.find(newUser)
+      const user = await User.findOne({ googleID: profile.id })
 
       if (!user){
         new User(newUser)
-        await newUser.save()
+        const user = await newUser.save()
+        done(null, user)
       }
+
+      else done(null, user)
 
     } catch (e) {
       console.log(e)
     }
 
-    done()
   }))
+
+  passport.serializeUser((user, done) => {
+    done(null, user.id)
+  })
+
+  passport.deserializeUser(async (id, done) => {
+    const user = await User.findById(id)
+    done(null, user)
+  })
 }
