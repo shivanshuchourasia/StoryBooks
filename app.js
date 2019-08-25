@@ -1,7 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const passport = require('passport')
+const authRoute = require('./routes/authRoute')
 
 const app = express()
+
+app.use(authRoute)
+
+// Passport config
+require('./config/passport')(passport)
 
 app.get('/', (req, res) => {
   res.send('It works')
