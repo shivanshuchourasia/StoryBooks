@@ -9,6 +9,7 @@ const passport = require('passport')
 // Load Routes
 const authRoute = require('./routes/authRoute')
 const indexRoute = require('./routes/indexRoute')
+const storiesRoute = require('./routes/storiesRoute')
 
 const app = express()
 
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 // Use routes
 app.use(authRoute)
 app.use(indexRoute)
+app.use(storiesRoute)
 
 const port = process.env.PORT || 5000
 
