@@ -1,4 +1,7 @@
 <h1>Welcome</h1>
 <p>Welcome to StoryBooks 1.0.0</p>
 <p>Post stories from the best and worst of your life and choose them to be read by the world or make entry into your personal diary</p>
-<a href="/auth/google" class="btn red darken-1"><i class="fa ga-google left"></i> Login with Google</a>
+{{#if user}}
+{{else}}
+  <a href="/auth/google" class="btn blue darken-1"><i class="fa fa-google left"></i> Login with Google</a>
+{{/if}}
