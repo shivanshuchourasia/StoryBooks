@@ -2,25 +2,31 @@
   <div class="container">
     <div class="nav-wrapper">
       <a href="/stories" class="brand-logo center">StoryBooks</a>
-      <a href="#" data-target="main-menu" class="sidenav-trigger"><i class="material-icons"></i></a>
+      <a href="#" data-target="main-menu" class="sidenav-trigger"><i class="fa fa-bars"></i></a>
 
       {{!-- RIGHT NAV --}}
       <ul class="right hide-on-small-only">
         {{#if user}}
-          <li><a href="/dashboard">Welcome {{user.firstName}}</a></li>
-          <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+        <li><a href="/dashboard">Welcome {{user.firstName}}</a></li>
+        <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
         {{else}}
-          <li><a href="/stories"><i class="fa fa-book"></i> Public Stories</a></li>
-        {{/if}}
-      </ul>
-
-      {{!-- SIDE NAV --}}
-      <ul class="sidenav" id="main-menu">
-        {{#if user}}
-        {{else}}
-          <a href="/auth/google" class="btn blue darken-1"><i class="fa fa-google left"></i> Login with Google</a>
+        <li><a href="/stories"><i class="fa fa-book"></i> Public Stories</a></li>
         {{/if}}
       </ul>
     </div>
   </div>
 </nav>
+{{!-- SIDE NAV --}}
+<ul class="sidenav" id="main-menu">
+  {{#if user}}
+  {{else}}
+  <li><a href="/auth/google" class="btn blue darken-1"><i class="fa fa-google left"></i> Login with Google</a></li>
+  {{/if}}
+  <li><a href="/stories"><i class="fa fa-book"></i> Public Stories</a></li>
+  {{#if user}}
+  <div class="divider"></div>
+  <li><a href="/dashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
+  <li><a href="/stories/my"><i class="fa fa-user"></i> My Stories</a></li>
+  <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+  {{/if}}
+</ul>
