@@ -1,12 +1,20 @@
 const express = require('express')
+const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 require('./db/mongoose')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const passport = require('passport')
+
+// Load Routes
 const authRoute = require('./routes/authRoute')
+const indexRoute = require('./routes/indexRoute')
 
 const app = express()
+
+// Handlebars Middlewares
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', 'handlebars')
 
 // Passport config
 require('./config/passport')(passport)
@@ -28,12 +36,9 @@ app.use((req, res, next) => {
   next()
 })
 
-// Load routes
+// Use routes
 app.use(authRoute)
-
-app.get('/', (req, res) => {
-  res.send('It works')
-})
+app.use(indexRoute)
 
 const port = process.env.PORT || 5000
 
