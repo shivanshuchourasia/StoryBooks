@@ -23,8 +23,8 @@ module.exports = function (passport) {
       const user = await User.findOne({ googleID: profile.id })
 
       if (!user){
-        new User(newUser)
-        const user = await newUser.save()
+        const user = new User(newUser)
+        await user.save()
         done(null, user)
       }
 
