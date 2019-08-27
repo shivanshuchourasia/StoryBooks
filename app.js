@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 require('./db/mongoose')
@@ -21,11 +22,17 @@ app.set('view engine', 'handlebars')
 require('./config/passport')(passport)
 
 app.use(cookieParser())
-app.use(session({
+var sess = {
   secret: 'secret',
   resave: false,
-  saveUninitialized: false
-}))
+  saveUninitialized: false,
+  cookie: {}
+}
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+app.use(session(sess))
 
 // Passport middlewares
 app.use(passport.initialize())
@@ -36,6 +43,8 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null
   next()
 })
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Use routes
 app.use(authRoute)
