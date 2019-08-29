@@ -1,1 +1,35 @@
 <h1>Stories</h1>
+
+<div class="row">
+  {{#each stories}}
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-image">
+          <a href="/stories/edit/{{id}}" class="btn-floating halfway-fab red">
+            <i class="fa fa-pencil"></i>
+          </a>
+        </div>
+        <div class="card-content center-align">
+          <h5>{{title}}</h5>
+          <p class="story-text">{{{body}}}</p>
+          <br>
+          <div class="chip">
+            <img src="{{owner.image}}">
+            {{owner.firstName}} {{owner.lastName}}
+          </div>
+        </div>
+        <div class="card-action center-align">
+          <a class="btn grey" href="/stories/show/{{id}}">Read More</a>
+        </div>
+      </div>
+    </div>
+
+
+
+  {{else}}
+    <h1>No Stories Found</h1>
+
+  {{/each}}
+</div>
+
+

@@ -14,6 +14,10 @@ const storiesRoute = require('./routes/storiesRoute')
 
 const app = express()
 
+// JSON Parser
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 // Handlebars Middlewares
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')

@@ -1,8 +1,15 @@
+{{#each errors}}
+  <div class="materialert error" id="alert_box">{{text}}
+    <button type="button" id="alert_close" class="close-alert">×</button>
+  </div>
+{{/each}}
+
+
 <div class="row">
   <form action="/stories" method="POST" class="col s12">
     <div class="row">
       <div class="input-field">
-        <input type="text" name="title">
+        <input type="text" name="title" value="{{title}}" required>
         <label for="title">Title</label>
       </div>
     </div>
@@ -30,7 +37,7 @@
     <div class="row">
       <div class="input-field">
         <h5>Tell Us Your Story:</h5>
-        <textarea name="body" cols="30" rows="10"></textarea>
+        <textarea name="body" cols="30" rows="10" required>{{body}}</textarea>
       </div>
     </div>
 
