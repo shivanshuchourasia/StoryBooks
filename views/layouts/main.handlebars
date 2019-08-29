@@ -16,7 +16,7 @@
   {{> _header}}
 
   {{#if user}}
-    {{> _add-btn}}
+  {{> _add-btn}}
   {{/if}}
 
   <main>
@@ -32,12 +32,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('.sidenav').sidenav();
       $('select').formSelect();
     })
-    CKEDITOR.replace( 'body', {
+    CKEDITOR.replace('body', {
       plugins: 'wysiwygarea,toolbar,basicstyles,link'
+    });
+    $('#alert_close').click(function () {
+      $("#alert_box").fadeOut("slow", function () {
+      });
     });
   </script>
 </body>
