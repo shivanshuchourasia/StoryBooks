@@ -18,8 +18,14 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// Handlebars Helpers
+const {truncate, stripTags} = require('./helpers/hbs')
+
 // Handlebars Middlewares
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ 
+  helpers: {truncate, stripTags},
+  defaultLayout: 'main' 
+}))
 app.set('view engine', 'handlebars')
 
 // Passport config
