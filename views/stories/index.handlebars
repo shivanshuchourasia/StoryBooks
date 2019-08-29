@@ -11,7 +11,7 @@
         </div>
         <div class="card-content center-align">
           <h5>{{title}}</h5>
-          <p class="story-text">{{{body}}}</p>
+          <p class="story-text">{{stripTags (truncate body 50)}}</p>
           <br>
           <div class="chip">
             <img src="{{owner.image}}">
@@ -23,8 +23,6 @@
         </div>
       </div>
     </div>
-
-
 
   {{else}}
     <h1>No Stories Found</h1>
