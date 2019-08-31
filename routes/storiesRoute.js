@@ -63,4 +63,19 @@ router.post('/stories', ensureAuthenticated, async (req, res) => {
   }
 })
 
+// Show Single Story
+router.get('/stories/show/:id', async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id).populate('owner')
+    if(story && story.status === 'public') {
+      res.render('stories/show', { story })
+    }
+    else {
+      throw new Error
+    }
+  } catch (e) {
+    res.status(404).send()
+  }
+})
+
 module.exports = router
