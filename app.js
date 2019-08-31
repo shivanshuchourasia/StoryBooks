@@ -19,11 +19,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Handlebars Helpers
-const {truncate, stripTags} = require('./helpers/hbs')
+const {truncate, stripTags, formatDate} = require('./helpers/hbs')
 
 // Handlebars Middlewares
 app.engine('handlebars', exphbs({ 
-  helpers: {truncate, stripTags},
+  helpers: {truncate, stripTags, formatDate},
   defaultLayout: 'main' 
 }))
 app.set('view engine', 'handlebars')
