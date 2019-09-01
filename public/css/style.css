@@ -64,3 +64,15 @@ footer {
   background-color: #c62828;
   color: #fff;
 }
+
+.story-text {
+  height: 40px;
+}
+
+.dash-status {
+  text-transform: capitalize;
+}
+
+#delete-form {
+  display: inline;
+}
