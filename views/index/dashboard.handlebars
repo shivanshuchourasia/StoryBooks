@@ -18,7 +18,8 @@
           <td><span class="dash-status">{{status}}</span></td>
           <td>
             <a href="stories/edit/{{id}}" class="btn left-align"><i class="fa fa-pencil"> Edit</i></a>
-            <form action="/stories/{{id}}" id="delete-form" method="POST">
+            <form action="/stories/{{id}}?_method=DELETE" id="delete-form" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
               <button class="btn red" type="submit"><i class="fa fa-remove"> Delete</i></button>
             </form>
           </td>

@@ -125,6 +125,16 @@ router.put('/stories/:id', ensureAuthenticated, async (req, res) => {
   }
 })
 
+// Delete Story
+router.delete('/stories/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    await Story.deleteOne({_id: req.params.id, owner: req.user._id})
+    res.redirect('/dashboard')
+  } catch (e) {
+    res.status(500).send()
+  }
+})
+
 // Show Single Story
 router.get('/stories/show/:id', async (req, res) => {
   try {
