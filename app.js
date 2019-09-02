@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 require('./db/mongoose')
 const cookieParser = require('cookie-parser')
@@ -18,12 +19,15 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// method-override middleware
+app.use(methodOverride('_method'))
+
 // Handlebars Helpers
-const {truncate, stripTags, formatDate} = require('./helpers/hbs')
+const {truncate, stripTags, formatDate, select} = require('./helpers/hbs')
 
 // Handlebars Middlewares
 app.engine('handlebars', exphbs({ 
-  helpers: {truncate, stripTags, formatDate},
+  helpers: {truncate, stripTags, formatDate, select},
   defaultLayout: 'main' 
 }))
 app.set('view engine', 'handlebars')
