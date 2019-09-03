@@ -1,20 +1,22 @@
 <div class="row">
-  <div class="col s12 m8">
-    <h3>{{story.title}}
-      <small>{{{editIcon story.owner.id user.id story.id false}}}</small>
-    </h3>
-    <div class="card story">
-      <div class="card-content">
-        <span class="card-title">{{formatDate story.date 'MMMM Do YYYY'}}</span>
-        {{{story.body}}}
-      </div>
-    </div>
+  <div class="col s12 m9">
+    <div class="row">
+      <div class="col m11">
+        <h3 style="text-transform: capitalize">{{story.title}}
+          <small>{{{editIcon story.owner.id user.id story.id false}}}</small>
+        </h3>
+        <div class="card story">
+          <div class="card-content">
+            <span class="card-title">{{formatDate story.date 'MMMM Do YYYY'}}</span>
+            <span class="story-body">{{{story.body}}}</span>
+          </div>
+        </div>
 
-    {{#if story.allowComments}}
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Comments</span>
-          {{#if user}}
+        {{#if story.allowComments}}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Comments</span>
+            {{#if user}}
             <form action="/stories/comment/{{story.id}}" method="POST">
               <div class="input-field">
                 <textarea name="commentBody" class="materialize-textarea"></textarea>
@@ -22,13 +24,13 @@
               </div>
               <input type="submit" value="submit" class="btn">
             </form>
-          {{else}}
+            {{else}}
             <p>Please <a href="/auth/google">log in</a> to leave a comment</p>
-          {{/if}}
+            {{/if}}
+          </div>
         </div>
-      </div>
 
-      {{#each story.comments}}
+        {{#each story.comments}}
         <div class="card">
           <div class="card-content">
             <h5>{{commentBody}}</h5>
@@ -41,11 +43,13 @@
           </div>
         </div>
 
-      {{/each}}
+        {{/each}}
 
-    {{/if}}
+        {{/if}}
+      </div>
+    </div>
   </div>
-  <div class="col s12 m4">
+  <div class="col s12 m3 profile-card">
     <div class="card center-align">
       <div class="card-content">
         <span class="card-title">{{story.owner.firstName}} {{story.owner.lastName}}</span>
