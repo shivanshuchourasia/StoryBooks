@@ -23,11 +23,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 // Handlebars Helpers
-const {truncate, stripTags, formatDate, select} = require('./helpers/hbs')
+const {truncate, stripTags, formatDate, select, editIcon} = require('./helpers/hbs')
 
 // Handlebars Middlewares
 app.engine('handlebars', exphbs({ 
-  helpers: {truncate, stripTags, formatDate, select},
+  helpers: {truncate, stripTags, formatDate, select, editIcon},
   defaultLayout: 'main' 
 }))
 app.set('view engine', 'handlebars')
@@ -52,13 +52,13 @@ app.use(session(sess))
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 // Set global vars
 app.use((req, res, next) => {
   res.locals.user = req.user || null
   next()
 })
-
-app.use(express.static(path.join(__dirname, 'public')))
 
 // Use routes
 app.use(authRoute)
