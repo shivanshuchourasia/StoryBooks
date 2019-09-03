@@ -76,3 +76,16 @@ footer {
 #delete-form {
   display: inline;
 }
+
+.contain {
+  width: 100%;
+}
+
+.story-body {
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.profile-card {
+  margin-top: 90px;
+}

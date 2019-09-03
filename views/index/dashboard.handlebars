@@ -1,33 +1,33 @@
-<h1>Welcome {{user.firstName}}</h1>
-<h4>Your Stories</h4>
-{{#if stories}}
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each stories}}
+  <h1>Welcome {{user.firstName}}</h1>
+  <h4>Your Stories</h4>
+  {{#if stories}}
+    <table class="striped">
+      <thead>
         <tr>
-          <td><a href="/stories/show/{{id}}">{{title}}</a></td>
-          <td>{{formatDate date 'MMMM Do YYYY'}}</td>
-          <td><span class="dash-status">{{status}}</span></td>
-          <td>
-            <a href="stories/edit/{{id}}" class="btn left-align"><i class="fa fa-pencil"> Edit</i></a>
-            <form action="/stories/{{id}}?_method=DELETE" id="delete-form" method="POST">
-              <input type="hidden" name="_method" value="DELETE">
-              <button class="btn red" type="submit"><i class="fa fa-remove"> Delete</i></button>
-            </form>
-          </td>
-
+          <th>Title</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th></th>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
-{{else}}
-  <p>You have not created any stories yet</p>
-{{/if}}
+      </thead>
+      <tbody>
+        {{#each stories}}
+          <tr>
+            <td><a href="/stories/show/{{id}}">{{title}}</a></td>
+            <td>{{formatDate date 'MMMM Do YYYY'}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+            <td>
+              <a href="stories/edit/{{id}}" class="btn left-align"><i class="fa fa-pencil"> Edit</i></a>
+              <form action="/stories/{{id}}?_method=DELETE" id="delete-form" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn red" type="submit"><i class="fa fa-remove"> Delete</i></button>
+              </form>
+            </td>
+
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p>You have not created any stories yet</p>
+  {{/if}}
