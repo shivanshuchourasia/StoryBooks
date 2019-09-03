@@ -6,7 +6,7 @@ const Story = require('../models/story')
 // Stories Index
 router.get('/stories', async (req, res) => {
   try {
-    const stories = await Story.find({ status: 'public' }).populate('owner')
+    const stories = await Story.find({ status: 'public' }).populate('owner').sort({ date: 'desc' })
     res.render('stories/index', { stories })
   } catch (e) {
     res.status(400).send()
@@ -23,9 +23,11 @@ router.get('/stories/edit/:id', ensureAuthenticated, async (req, res) => {
   try {
     const story = await Story.findOne({_id: req.params.id, owner: req.user._id})
     if (!story) {
-      return res.status(404).send()
+      return res.redirect('/stories')
     }
-    res.render('stories/edit', { story })
+    if(req.user.id == story.owner){
+      res.render('stories/edit', { story })
+    }
   } catch (e) {
     res.status(400).send()
   }
@@ -135,10 +137,27 @@ router.delete('/stories/:id', ensureAuthenticated, async (req, res) => {
   }
 })
 
+// Add Comment
+router.post('/stories/comment/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id)
+    const newComment = {
+      commentBody: req.body.commentBody,
+      commentUser: req.user._id
+    }
+
+    story.comments.unshift(newComment)
+    await story.save()
+    res.redirect(`/stories/show/${story.id}`)
+  } catch (e) {
+    res.status(400).send
+  }
+})
+
 // Show Single Story
 router.get('/stories/show/:id', async (req, res) => {
   try {
-    const story = await Story.findById(req.params.id).populate('owner')
+    const story = await Story.findById(req.params.id).populate('owner').populate('comments.commentUser')
     if(story && story.status === 'public') {
       res.render('stories/show', { story })
     }
