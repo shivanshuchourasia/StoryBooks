@@ -161,11 +161,33 @@ router.get('/stories/show/:id', async (req, res) => {
     if(story && story.status === 'public') {
       res.render('stories/show', { story })
     }
-    else {
-      throw new Error
+    else if (story && story.status !== 'public' && req.user.id == story.owner._id) {
+      res.render('stories/show', { story })
+    } else {
+      res.redirect('/stories')
     }
   } catch (e) {
     res.status(404).send()
+  }
+})
+
+// Show User Story
+router.get('/stories/user/:userId', async (req, res) => {
+  try {
+    const stories = await Story.find({ owner: req.params.userId, status: 'public' }).populate('owner').sort({ date: 'desc' })
+    res.render('stories/index', { stories })
+  } catch (e) {
+    res.status(400).send()
+  }
+})
+
+// Show My Story
+router.get('/stories/my', ensureAuthenticated, async (req, res) => {
+  try {
+    const stories = await Story.find({ owner: req.user.id}).populate('owner').sort({ date: 'desc' })
+    res.render('stories/index', { stories })
+  } catch (e) {
+    res.status(400).send()
   }
 })
 
